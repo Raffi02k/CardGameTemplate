@@ -1,4 +1,6 @@
 ## 📖 Game Description
+<img width="799" alt="Screenshot 2025-03-08 at 15 49 20" src="https://github.com/user-attachments/assets/46e0e951-5639-4ac4-a7da-519004b432af" />
+
 
 Rock-Paper-Scissors Card Battle transforms the simple hand game into a strategic card battle. Players take turns attacking each other's cards or switching their cards with new ones from the deck. Each card type (Stone, Paper, Scissors) has unique attributes and special abilities, creating a dynamic and engaging gameplay experience.
 
@@ -11,6 +13,7 @@ Rock-Paper-Scissors Card Battle transforms the simple hand game into a strategic
 - When a card is attacked, its defence is reduced first. When defence reaches 0, the card's life is reduced
 - When a card's life reaches 0, it is defeated and that slot is locked
 - The goal is to defeat all of your opponent's cards
+![Uploading Screenshot 2025-03-08 at 15.49.36.png…]()
 
 
 ### Card Types
@@ -108,7 +111,7 @@ java -jar target/demo-1.0-SNAPSHOT.jar
 
 ## 🧰 Technologies Used
 
-- Java 17
+- Java 23
 - JavaFX for the user interface
 - Maven for dependency management
 - Object-oriented design with MVC architecture
