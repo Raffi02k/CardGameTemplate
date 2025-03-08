@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cardgame.controller.MainMenuController" styleClass="main-menu">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label text="Rock-Paper-Scissors Card Battle" styleClass="title">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+
+    <VBox alignment="CENTER" spacing="10.0" maxWidth="300.0">
+        <Label text="Player 1 Name:" />
+        <TextField fx:id="player1NameField" promptText="Enter Player 1 Name" text="Player 1" />
+
+        <Label text="Player 2 Name:" />
+        <TextField fx:id="player2NameField" promptText="Enter Player 2 Name" text="Player 2" />
+    </VBox>
+
+    <Button fx:id="startGameButton" text="Start Game" onAction="#startGame" styleClass="start-button" />
+
+    <Button fx:id="rulesButton" text="Game Rules" onAction="#showRules" styleClass="rules-button" />
+
+    <Button fx:id="exitButton" text="Exit" onAction="#exitGame" styleClass="exit-button" />
+</VBox>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cardgame.controller.GameScreenController" styleClass="game-screen">
+
+    <top>
+        <HBox alignment="CENTER" spacing="20.0" styleClass="header">
+            <padding>
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+            </padding>
+
+            <Label fx:id="gameStatusLabel" text="Game Status" styleClass="status-label">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Label>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="activateSwitchModeButton" text="Switch Mode" onAction="#activateSwitchMode" styleClass="switch-mode-button" />
+            <Button fx:id="endTurnButton" text="End Turn" onAction="#endTurn" styleClass="end-turn-button" />
+            <Button fx:id="mainMenuButton" text="Main Menu" onAction="#returnToMainMenu" styleClass="menu-button" />
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20.0">
+            <padding>
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+            </padding>
+
+            <!-- Player 2's cards (top) -->
+            <VBox alignment="CENTER" spacing="5.0">
+                <Label fx:id="player2NameLabel" text="Player 2" styleClass="player-name" />
+
+                <HBox fx:id="player2CardsContainer" alignment="CENTER" spacing="10.0" styleClass="cards-container">
+                    <!-- Player 2's cards will be added here dynamically -->
+                </HBox>
+            </VBox>
+
+            <!-- Deck area (middle) -->
+            <HBox alignment="CENTER" spacing="20.0" styleClass="deck-area">
+                <VBox alignment="CENTER" spacing="5.0">
+                    <Label text="Deck" styleClass="deck-label" />
+                    <StackPane fx:id="deckContainer" styleClass="deck-container">
+                        <!-- Deck visualization will be added here -->
+                    </StackPane>
+                    <Label fx:id="cardsRemainingLabel" text="Cards: 0" styleClass="cards-remaining" />
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="5.0">
+                    <Label text="Available Cards" styleClass="available-cards-label" />
+                    <HBox fx:id="availableCardsContainer" alignment="CENTER" spacing="10.0" styleClass="available-cards">
+                        <!-- Available cards will be added here dynamically -->
+                    </HBox>
+                    <Button fx:id="switchCardsButton" text="Switch Selected Cards" onAction="#switchCards"
+                            styleClass="switch-button" disable="true" />
+                </VBox>
+            </HBox>
+
+            <!-- Player 1's cards (bottom) -->
+            <VBox alignment="CENTER" spacing="5.0">
+                <Label fx:id="player1NameLabel" text="Player 1" styleClass="player-name" />
+
+                <HBox fx:id="player1CardsContainer" alignment="CENTER" spacing="10.0" styleClass="cards-container">
+                    <!-- Player 1's cards will be added here dynamically -->
+                </HBox>
+            </VBox>
+
+            <!-- Game log -->
+            <VBox alignment="CENTER" spacing="5.0" styleClass="log-container">
+                <Label text="Game Log" styleClass="log-label" />
+                <ScrollPane fx:id="logScrollPane" prefHeight="100.0" styleClass="log-scroll">
+                    <TextArea fx:id="gameLogTextArea" editable="false" wrapText="true" styleClass="game-log" />
+                </ScrollPane>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>
+

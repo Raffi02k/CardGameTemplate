@@ -1,0 +1,193 @@
+/* Global styles */
+.root {
+    -fx-font-family: "System";
+    -fx-background-color: #f0f0f0;
+}
+
+/* Main menu styles */
+.main-menu {
+    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+    -fx-padding: 20;
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0, 0, 1);
+}
+
+.start-button,
+.rules-button,
+.exit-button {
+    -fx-min-width: 150;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+.start-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+}
+
+.start-button:hover {
+    -fx-background-color: #2ecc71;
+}
+
+.rules-button {
+    -fx-background-color: #f39c12;
+    -fx-text-fill: white;
+}
+
+.rules-button:hover {
+    -fx-background-color: #f1c40f;
+}
+
+.exit-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+}
+
+.exit-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Game screen styles */
+.game-screen {
+    -fx-background-color: #ecf0f1;
+}
+
+.header {
+    -fx-background-color: #34495e;
+    -fx-padding: 10;
+}
+
+.status-label {
+    -fx-text-fill: white;
+}
+
+.end-turn-button,
+.menu-button,
+.switch-mode-button {
+    -fx-padding: 8;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+.end-turn-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.end-turn-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.switch-mode-button {
+    -fx-background-color: #9b59b6;
+    -fx-text-fill: white;
+}
+
+.switch-mode-button:hover {
+    -fx-background-color: #8e44ad;
+}
+
+.menu-button {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+}
+
+.menu-button:hover {
+    -fx-background-color: #7f8c8d;
+}
+
+/* Player areas */
+.player-name {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.cards-container {
+    -fx-padding: 10;
+    -fx-background-color: rgba(189, 195, 199, 0.3);
+    -fx-background-radius: 10;
+    -fx-min-height: 200;
+}
+
+/* Deck area */
+.deck-area {
+    -fx-padding: 10;
+    -fx-background-color: rgba(189, 195, 199, 0.3);
+    -fx-background-radius: 10;
+}
+
+.deck-label,
+.available-cards-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.deck {
+    -fx-background-color: #34495e;
+    -fx-background-radius: 10;
+    -fx-min-width: 100;
+    -fx-min-height: 150;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0, 0, 1);
+}
+
+.cards-remaining {
+    -fx-text-fill: #7f8c8d;
+}
+
+.available-cards {
+    -fx-padding: 10;
+    -fx-min-height: 200;
+}
+
+.switch-button {
+    -fx-background-color: #f39c12;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8;
+    -fx-background-radius: 5;
+}
+
+.switch-button:hover {
+    -fx-background-color: #f1c40f;
+}
+
+/* Card styles */
+.card-view {
+    -fx-border-color: #7f8c8d;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 3, 0, 0, 1);
+    -fx-cursor: hand;
+}
+
+.card-view.selected {
+    -fx-border-color: gold;
+    -fx-border-width: 3;
+}
+
+/* Game log */
+.log-container {
+    -fx-padding: 5;
+}
+
+.log-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.log-scroll {
+    -fx-background-color: transparent;
+}
+
+.game-log {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5;
+}
+
