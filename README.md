@@ -13,6 +13,8 @@ Rock-Paper-Scissors Card Battle transforms the simple hand game into a strategic
 - When a card is attacked, its defence is reduced first. When defence reaches 0, the card's life is reduced
 - When a card's life reaches 0, it is defeated and that slot is locked
 - The goal is to defeat all of your opponent's cards
+
+
 ![Uploading Screenshot 2025-03-08 at 15.49.36.png…]()
 
 
