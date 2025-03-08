@@ -1,11 +1,3 @@
-Thought for 2 seconds### Rock-Paper-Scissors Card Battle
-
-A strategic card battle game based on the classic Rock-Paper-Scissors concept, implemented in JavaFX.
-
-
-
-
-
 ## 📖 Game Description
 
 Rock-Paper-Scissors Card Battle transforms the simple hand game into a strategic card battle. Players take turns attacking each other's cards or switching their cards with new ones from the deck. Each card type (Stone, Paper, Scissors) has unique attributes and special abilities, creating a dynamic and engaging gameplay experience.
