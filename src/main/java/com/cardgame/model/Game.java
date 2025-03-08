@@ -171,6 +171,72 @@ public class Game {
     }
 
     /**
+     * Switches cards from the player's hand with specific cards from the deck.
+     * @param playerCardIndices Indices of the player's cards to switch
+     * @param chosenDeckCards The specific deck cards to use as replacements
+     * @return Result of the switch operation as a string
+     */
+    public String switchCardsWithChosen(List<Integer> playerCardIndices, List<Card> chosenDeckCards) {
+        if (gameOver) {
+            return "Game is already over!";
+        }
+
+        Player currentPlayer = getCurrentPlayer();
+
+        // Check if player has already attacked this turn
+        if (currentPlayer.hasAttackedThisTurn()) {
+            return "You cannot switch cards after attacking!";
+        }
+
+        // Validate indices and counts
+        if (playerCardIndices.size() != chosenDeckCards.size()) {
+            return "Mismatch between number of player cards and deck cards!";
+        }
+
+        // Validate player card indices
+        for (int index : playerCardIndices) {
+            if (index < 0 || index >= currentPlayer.getCards().size()) {
+                return "Invalid player card index: " + index;
+            }
+
+            // Check if the card at this index is defeated
+            if (currentPlayer.getCards().get(index).isDefeated()) {
+                return "Cannot switch a defeated card at index: " + index;
+            }
+        }
+
+        // Switch the cards
+        StringBuilder result = new StringBuilder("Switched cards:\n");
+
+        // Create a copy of chosenDeckCards to avoid ConcurrentModificationException
+        List<Card> deckCardsCopy = new ArrayList<>(chosenDeckCards);
+
+        // Sort indices in descending order to avoid index shifting issues
+        List<Integer> sortedIndices = new ArrayList<>(playerCardIndices);
+        Collections.sort(sortedIndices);
+        Collections.reverse(sortedIndices);
+
+        for (int i = 0; i < sortedIndices.size(); i++) {
+            int playerIndex = sortedIndices.get(i);
+            Card deckCard = deckCardsCopy.get(i);
+
+            // Remove the card from the deck's visible cards
+            deck.removeVisibleCard(deckCard);
+
+            // Replace player's card
+            Card oldCard = currentPlayer.replaceCard(playerIndex, deckCard);
+
+            result.append("- Replaced ").append(oldCard.getName())
+                    .append(" with ").append(deckCard.getName()).append("\n");
+        }
+
+        // Refresh the visible cards in the deck
+        deck.refreshVisibleCards();
+
+        return result.toString();
+    }
+
+    /**
      * Ends the current player's turn and switches to the other player.
      */
     public void endTurn() {

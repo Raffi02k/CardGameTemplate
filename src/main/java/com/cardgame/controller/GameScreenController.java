@@ -72,8 +72,10 @@ public class GameScreenController {
     private Game game;
     private CardView selectedPlayerCard;
     private CardView selectedOpponentCard;
-    private final List<CardView> selectedCardsForSwitch = new ArrayList<>();
+    private final List<CardView> selectedPlayerCards = new ArrayList<>();
+    private final List<CardView> selectedDeckCards = new ArrayList<>();
     private boolean switchModeActive = false;
+    private boolean hasSwitchedThisTurn = false;
 
     /**
      * Logs debug information if debug mode is enabled.
@@ -134,6 +136,7 @@ public class GameScreenController {
             final int cardIndex = i;
             cardView.setOnMouseClicked(event -> {
                 if (!card.isDefeated()) {
+                    debugLog("Clicked player 1 card at index " + cardIndex);
                     handlePlayerCardClick(cardView, cardIndex);
                 }
             });
@@ -204,8 +207,10 @@ public class GameScreenController {
             CardView cardView = new CardView(card, i);
 
             // Add click handler for available cards
+            final int cardIndex = i;  // Create a final copy of i
             cardView.setOnMouseClicked(event -> {
-                appendToGameLog("Available cards are shown for reference only. Select your cards and use the 'Switch Selected Cards' button to switch.");
+                debugLog("Clicked available card at index " + cardIndex);
+                handleAvailableCardClick(cardView);
             });
 
             availableCardsContainer.getChildren().add(cardView);
@@ -264,9 +269,9 @@ public class GameScreenController {
                 return;
             }
 
-            // If we're in switch mode or no card is selected yet
-            if (switchModeActive || selectedCardsForSwitch.size() > 0) {
-                toggleCardForSwitch(cardView);
+            // If we're in switch mode or cards are selected for switching
+            if (switchModeActive || !selectedPlayerCards.isEmpty()) {
+                togglePlayerCardForSwitch(cardView);
             } else if (selectedPlayerCard == null) {
                 // Select this card for attack
                 selectedPlayerCard = cardView;
@@ -304,27 +309,72 @@ public class GameScreenController {
     }
 
     /**
-     * Toggles a card for switching with deck cards.
+     * Handles a click on an available card.
      */
-    private void toggleCardForSwitch(CardView cardView) {
-        if (selectedCardsForSwitch.contains(cardView)) {
-            // Deselect the card
-            selectedCardsForSwitch.remove(cardView);
-            cardView.setSelected(false);
-            debugLog("Deselected card for switching: " + cardView.getCard().getName());
-        } else {
-            // Select the card
-            selectedCardsForSwitch.add(cardView);
-            cardView.setSelected(true);
-            debugLog("Selected card for switching: " + cardView.getCard().getName());
+    private void handleAvailableCardClick(CardView cardView) {
+        if (game.getCurrentPlayer().hasAttackedThisTurn() || hasSwitchedThisTurn) {
+            appendToGameLog("You cannot switch cards after attacking or having already switched this turn.");
+            return;
         }
 
-        // Enable/disable switch button based on selection
-        switchCardsButton.setDisable(selectedCardsForSwitch.isEmpty());
+        if (switchModeActive) {
+            toggleDeckCardForSwitch(cardView);
+        } else {
+            appendToGameLog("Click 'Switch Mode' button first to activate card switching.");
+        }
+    }
 
-        // Update UI feedback
-        if (!selectedCardsForSwitch.isEmpty()) {
-            appendToGameLog("Selected " + selectedCardsForSwitch.size() + " card(s) for switching. Click 'Switch Selected Cards' to proceed.");
+    /**
+     * Toggles a deck card for switching.
+     */
+    private void toggleDeckCardForSwitch(CardView cardView) {
+        if (selectedDeckCards.contains(cardView)) {
+            // Deselect the card
+            selectedDeckCards.remove(cardView);
+            cardView.setSelected(false);
+            debugLog("Deselected deck card: " + cardView.getCard().getName());
+        } else {
+            // Select the card
+            selectedDeckCards.add(cardView);
+            cardView.setSelected(true);
+            debugLog("Selected deck card: " + cardView.getCard().getName());
+        }
+
+        // Update switch button status
+        updateSwitchButtonStatus();
+    }
+
+    /**
+     * Toggles a player card for switching with deck cards.
+     */
+    private void togglePlayerCardForSwitch(CardView cardView) {
+        if (selectedPlayerCards.contains(cardView)) {
+            // Deselect the card
+            selectedPlayerCards.remove(cardView);
+            cardView.setSelected(false);
+            debugLog("Deselected player card for switching: " + cardView.getCard().getName());
+        } else {
+            // Select the card
+            selectedPlayerCards.add(cardView);
+            cardView.setSelected(true);
+            debugLog("Selected player card for switching: " + cardView.getCard().getName());
+        }
+
+        // Update switch button status
+        updateSwitchButtonStatus();
+    }
+
+    /**
+     * Updates the switch button status.
+     */
+    private void updateSwitchButtonStatus() {
+        // Enable switch button only if same number of player and deck cards are selected
+        boolean canSwitch = !selectedPlayerCards.isEmpty() &&
+                (selectedPlayerCards.size() == selectedDeckCards.size());
+        switchCardsButton.setDisable(!canSwitch);
+
+        if (canSwitch) {
+            appendToGameLog("Ready to switch " + selectedPlayerCards.size() + " card(s). Click 'Switch Selected Cards' to confirm.");
         }
     }
 
@@ -333,6 +383,16 @@ public class GameScreenController {
      */
     @FXML
     private void activateSwitchMode() {
+        if (game.getCurrentPlayer().hasAttackedThisTurn()) {
+            appendToGameLog("You cannot switch cards after attacking.");
+            return;
+        }
+
+        if (hasSwitchedThisTurn) {
+            appendToGameLog("You can only switch cards once per turn.");
+            return;
+        }
+
         switchModeActive = true;
 
         // Clear any attack selection
@@ -341,7 +401,9 @@ public class GameScreenController {
             selectedPlayerCard = null;
         }
 
-        appendToGameLog("Switch mode activated. Select cards to switch, then click 'Switch Selected Cards'.");
+        appendToGameLog("Switch mode activated. First select the cards from your hand you want to replace, " +
+                "then select an equal number of cards from the available deck cards. " +
+                "Finally, click 'Switch Selected Cards' to complete the exchange.");
     }
 
     /**
@@ -349,31 +411,53 @@ public class GameScreenController {
      */
     @FXML
     private void switchCards(ActionEvent event) {
-        if (selectedCardsForSwitch.isEmpty()) {
-            appendToGameLog("No cards selected for switching.");
+        if (selectedPlayerCards.isEmpty() || selectedDeckCards.isEmpty()) {
+            appendToGameLog("Please select equal numbers of your cards and deck cards to switch.");
             return;
         }
 
-        debugLog("Switch button clicked with " + selectedCardsForSwitch.size() + " cards selected");
-
-        // Get the indices of the selected cards
-        List<Integer> cardIndices = new ArrayList<>();
-        for (CardView cardView : selectedCardsForSwitch) {
-            cardIndices.add(cardView.getIndex());
-            debugLog("Adding card index for switching: " + cardView.getIndex());
+        if (selectedPlayerCards.size() != selectedDeckCards.size()) {
+            appendToGameLog("Please select equal numbers of your cards and deck cards to switch.");
+            return;
         }
 
-        // Perform the switch
-        String switchResult = game.switchCards(cardIndices);
+        if (hasSwitchedThisTurn) {
+            appendToGameLog("You have already switched cards this turn.");
+            return;
+        }
+
+        debugLog("Switch button clicked with " + selectedPlayerCards.size() + " player cards and " +
+                selectedDeckCards.size() + " deck cards selected");
+
+        // Create mappings of player card indices to deck card indices
+        List<Integer> playerCardIndices = new ArrayList<>();
+        List<Card> deckCardsToUse = new ArrayList<>();
+
+        for (CardView playerCardView : selectedPlayerCards) {
+            playerCardIndices.add(playerCardView.getIndex());
+        }
+
+        for (CardView deckCardView : selectedDeckCards) {
+            deckCardsToUse.add(deckCardView.getCard());
+        }
+
+        // Perform the switch with custom cards
+        String switchResult = game.switchCardsWithChosen(playerCardIndices, deckCardsToUse);
         appendToGameLog(switchResult);
 
         // Reset selections
-        for (CardView cardView : new ArrayList<>(selectedCardsForSwitch)) {
+        for (CardView cardView : new ArrayList<>(selectedPlayerCards)) {
             cardView.setSelected(false);
         }
-        selectedCardsForSwitch.clear();
+        for (CardView cardView : new ArrayList<>(selectedDeckCards)) {
+            cardView.setSelected(false);
+        }
+
+        selectedPlayerCards.clear();
+        selectedDeckCards.clear();
         switchCardsButton.setDisable(true);
         switchModeActive = false;
+        hasSwitchedThisTurn = true;
 
         // Update UI
         setupPlayerCards(); // Rebuild player cards to ensure correct indices
@@ -392,15 +476,23 @@ public class GameScreenController {
             selectedPlayerCard = null;
         }
 
-        for (CardView cardView : new ArrayList<>(selectedCardsForSwitch)) {
+        for (CardView cardView : new ArrayList<>(selectedPlayerCards)) {
             cardView.setSelected(false);
         }
-        selectedCardsForSwitch.clear();
+        for (CardView cardView : new ArrayList<>(selectedDeckCards)) {
+            cardView.setSelected(false);
+        }
+
+        selectedPlayerCards.clear();
+        selectedDeckCards.clear();
         switchCardsButton.setDisable(true);
         switchModeActive = false;
 
         // End the turn
         game.endTurn();
+
+        // Reset switch status for new turn
+        hasSwitchedThisTurn = false;
 
         // Update UI
         updateCardViews();

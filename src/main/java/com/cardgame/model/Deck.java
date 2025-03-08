@@ -86,9 +86,23 @@ public class Deck {
     }
 
     /**
-     * Updates the list of visible cards from the top of the deck.
+     * Removes a specific card from the visible cards and from the deck.
+     * @param cardToRemove The card to remove
+     * @return true if the card was found and removed, false otherwise
      */
-    private void refreshVisibleCards() {
+    public boolean removeVisibleCard(Card cardToRemove) {
+        boolean removed = visibleCards.remove(cardToRemove);
+
+        // Also remove from the main deck if it's there
+        cards.remove(cardToRemove);
+
+        return removed;
+    }
+
+    /**
+     * Forcibly refreshes the visible cards from the top of the deck.
+     */
+    public void refreshVisibleCards() {
         visibleCards.clear();
 
         for (int i = 0; i < VISIBLE_CARDS_COUNT && i < cards.size(); i++) {
@@ -120,3 +134,4 @@ public class Deck {
         return cards.isEmpty();
     }
 }
+

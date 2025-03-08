@@ -131,8 +131,10 @@ public class CardView extends VBox {
      */
     public void setSelected(boolean selected) {
         if (selected) {
+            getStyleClass().add("selected");
             setStyle("-fx-border-color: gold; -fx-border-width: 3; -fx-border-radius: 10;");
         } else {
+            getStyleClass().remove("selected");
             setStyle("");
         }
     }
@@ -153,3 +155,4 @@ public class CardView extends VBox {
         return index;
     }
 }
+
