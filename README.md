@@ -15,7 +15,8 @@ Rock-Paper-Scissors Card Battle transforms the simple hand game into a strategic
 - The goal is to defeat all of your opponent's cards
 
 
-![Uploading Screenshot 2025-03-08 at 15.49.36.png…]()
+<img width="815" alt="Screenshot 2025-03-08 at 15 49 36" src="https://github.com/user-attachments/assets/2cf62224-6a76-4c23-ba5b-cbec4af79e6c" />
+
 
 
 ### Card Types
