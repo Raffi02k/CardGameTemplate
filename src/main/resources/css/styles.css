@@ -1,18 +1,43 @@
 /* Global styles */
 .root {
     -fx-font-family: "System";
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: #0a0a1a;
 }
 
 /* Main menu styles */
 .main-menu {
-    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+    -fx-background-color: linear-gradient(to bottom, #1a1a3a, #0a0a1a);
     -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, #00f7ff33, 10, 0, 0, 0);
+}
+
+.main-menu Label {
+    -fx-text-fill: #00f7ff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #00f7ff80, 3, 0, 0, 0);
+}
+
+.main-menu TextField {
+    -fx-background-color: linear-gradient(to bottom right, #1a1a3a, #2a2a4a);
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-padding: 8;
+    -fx-border-color: #00f7ff;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.main-menu TextField:focused {
+    -fx-background-color: linear-gradient(to bottom right, #2a2a4a, #3a3a5a);
+    -fx-effect: dropshadow(gaussian, #00f7ff80, 5, 0, 0, 0);
 }
 
 .title {
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0, 0, 1);
+    -fx-text-fill: #00f7ff;
+    -fx-effect: dropshadow(gaussian, #00f7ff80, 10, 0, 0, 0);
+    -fx-font-weight: bold;
 }
 
 .start-button,
@@ -25,44 +50,56 @@
 }
 
 .start-button {
-    -fx-background-color: #27ae60;
-    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(to bottom right, #00f7ff22, #00f7ff44);
+    -fx-border-color: #00f7ff;
+    -fx-border-width: 2;
+    -fx-text-fill: #00f7ff;
 }
 
 .start-button:hover {
-    -fx-background-color: #2ecc71;
+    -fx-background-color: linear-gradient(to bottom right, #00f7ff44, #00f7ff66);
+    -fx-effect: dropshadow(gaussian, #00f7ff80, 10, 0, 0, 0);
 }
 
 .rules-button {
-    -fx-background-color: #f39c12;
-    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(to bottom right, #ff00ff22, #ff00ff44);
+    -fx-border-color: #ff00ff;
+    -fx-border-width: 2;
+    -fx-text-fill: #ff00ff;
 }
 
 .rules-button:hover {
-    -fx-background-color: #f1c40f;
+    -fx-background-color: linear-gradient(to bottom right, #ff00ff44, #ff00ff66);
+    -fx-effect: dropshadow(gaussian, #ff00ff80, 10, 0, 0, 0);
 }
 
 .exit-button {
-    -fx-background-color: #e74c3c;
-    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(to bottom right, #ff000022, #ff000044);
+    -fx-border-color: #ff0000;
+    -fx-border-width: 2;
+    -fx-text-fill: #ff0000;
 }
 
 .exit-button:hover {
-    -fx-background-color: #c0392b;
+    -fx-background-color: linear-gradient(to bottom right, #ff000044, #ff000066);
+    -fx-effect: dropshadow(gaussian, #ff000080, 10, 0, 0, 0);
 }
 
 /* Game screen styles */
 .game-screen {
-    -fx-background-color: #ecf0f1;
+    -fx-background-color: linear-gradient(to bottom, #1a1a3a, #0a0a1a);
 }
 
 .header {
-    -fx-background-color: #34495e;
+    -fx-background-color: linear-gradient(to right, #1a1a3a, #2a2a4a);
     -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, #00f7ff33, 5, 0, 0, 0);
 }
 
 .status-label {
-    -fx-text-fill: white;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, #ffffff80, 3, 0, 0, 0);
 }
 
 .end-turn-button,
@@ -104,14 +141,18 @@
 .player-name {
     -fx-font-size: 16;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
+    -fx-text-fill: #00f7ff;
+    -fx-effect: dropshadow(gaussian, #00f7ff40, 5, 0, 0, 0);
 }
 
 .cards-container {
     -fx-padding: 10;
-    -fx-background-color: rgba(189, 195, 199, 0.3);
+    -fx-background-color: rgba(0, 247, 255, 0.05);
     -fx-background-radius: 10;
     -fx-min-height: 200;
+    -fx-border-color: #00f7ff33;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
 }
 
 /* Deck area */
@@ -124,19 +165,24 @@
 .deck-label,
 .available-cards-label {
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, #ffffff80, 3, 0, 0, 0);
 }
 
 .deck {
-    -fx-background-color: #34495e;
+    -fx-background-color: linear-gradient(135deg, #2a2a4a, #1a1a3a);
     -fx-background-radius: 10;
     -fx-min-width: 100;
     -fx-min-height: 150;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, #00f7ff40, 10, 0, 0, 0);
+    -fx-border-color: #00f7ff33;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
 }
 
 .cards-remaining {
-    -fx-text-fill: #7f8c8d;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, #ffffff80, 3, 0, 0, 0);
 }
 
 .available-cards {
@@ -158,17 +204,19 @@
 
 /* Card styles */
 .card-view {
-    -fx-border-color: #7f8c8d;
+    -fx-border-color: #00f7ff66;
     -fx-border-width: 1;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 3, 0, 0, 1);
+    -fx-background-color: linear-gradient(135deg, #1a1a3a88, #2a2a4a88);
+    -fx-effect: dropshadow(gaussian, #00f7ff40, 5, 0, 0, 0);
     -fx-cursor: hand;
 }
 
 .card-view.selected {
-    -fx-border-color: gold;
-    -fx-border-width: 3;
+    -fx-border-color: #00f7ff;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, #00f7ff80, 10, 0, 0, 0);
 }
 
 /* Game log */
@@ -178,7 +226,8 @@
 
 .log-label {
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, #ffffff80, 3, 0, 0, 0);
 }
 
 .log-scroll {

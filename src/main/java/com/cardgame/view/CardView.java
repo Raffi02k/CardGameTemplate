@@ -52,20 +52,33 @@ public class CardView extends VBox {
 
         // Create labels for card information
         nameLabel = new Label(card.getName());
-        nameLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
+        nameLabel.setFont(Font.font("System", FontWeight.BOLD, 14));
         nameLabel.setWrapText(true);
         nameLabel.setAlignment(Pos.CENTER);
+        nameLabel.setTextFill(Color.WHITE);
+        nameLabel.setStyle("-fx-effect: dropshadow(gaussian, #00f7ff80, 2, 0, 0, 0);");
 
         typeLabel = new Label(card.getType());
-        typeLabel.setFont(Font.font("System", 10));
+        typeLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
+        typeLabel.setTextFill(Color.WHITE);
+        typeLabel.setStyle("-fx-effect: dropshadow(gaussian, #00f7ff80, 2, 0, 0, 0);");
 
         lifeLabel = new Label("Life: " + card.getCurrentLife() + "/" + card.getMaxLife());
+        lifeLabel.setTextFill(Color.WHITE);
+        lifeLabel.setStyle("-fx-effect: dropshadow(gaussian, #00f7ff80, 2, 0, 0, 0);");
+
         defenceLabel = new Label("Defence: " + card.getCurrentDefence() + "/" + card.getMaxDefence());
+        defenceLabel.setTextFill(Color.WHITE);
+        defenceLabel.setStyle("-fx-effect: dropshadow(gaussian, #00f7ff80, 2, 0, 0, 0);");
+
         attackLabel = new Label("Attack: " + card.getAttack());
+        attackLabel.setTextFill(Color.WHITE);
+        attackLabel.setStyle("-fx-effect: dropshadow(gaussian, #00f7ff80, 2, 0, 0, 0);");
 
         statusLabel = new Label();
         statusLabel.setFont(Font.font("System", FontWeight.BOLD, 10));
         statusLabel.setTextFill(Color.RED);
+        statusLabel.setStyle("-fx-effect: dropshadow(gaussian, #ff000080, 2, 0, 0, 0);");
 
         // Add labels to the card view
         getChildren().addAll(nameLabel, typeLabel, lifeLabel, defenceLabel, attackLabel, statusLabel);
@@ -113,13 +126,13 @@ public class CardView extends VBox {
         Color bgColor;
 
         if (card instanceof StoneCard) {
-            bgColor = Color.rgb(150, 150, 150, 0.7); // Gray for Stone
+            bgColor = Color.rgb(50, 50, 70, 0.9); // Dark blue-gray for Stone
         } else if (card instanceof PaperCard) {
-            bgColor = Color.rgb(255, 255, 200, 0.7); // Light yellow for Paper
+            bgColor = Color.rgb(70, 50, 70, 0.9); // Dark purple for Paper
         } else if (card instanceof ScissorsCard) {
-            bgColor = Color.rgb(200, 200, 255, 0.7); // Light blue for Scissors
+            bgColor = Color.rgb(50, 70, 70, 0.9); // Dark cyan for Scissors
         } else {
-            bgColor = Color.rgb(240, 240, 240, 0.7); // Default light gray
+            bgColor = Color.rgb(60, 60, 60, 0.9); // Default dark gray
         }
 
         setBackground(new Background(new BackgroundFill(bgColor, new CornerRadii(10), Insets.EMPTY)));
